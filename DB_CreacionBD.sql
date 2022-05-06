@@ -1,7 +1,39 @@
+DROP TABLE PLANET;
 DROP TABLE USERS;
 DROP TABLE WARSHIPS;
 DROP TABLE DEFENSE;
 DROP TABLE BattleLog;
+
+CREATE TABLE PLANET (
+    id_planet number PRIMARY KEY,
+    id_user number,
+    CONSTRAINT id_user
+    FOREIGN KEY (id_user) REFERENCES USERS (id_user)
+);
+
+CREATE TABLE PLANET_SHIP(
+    id_planet number,
+    id_ship number,
+    cant number,
+    level number,
+
+    CONSTRAINT id_planet
+    FOREIGN KEY (id_planet) REFERENCES PLANET (id_planet),
+    CONSTRAINT id_ship
+    FOREIGN KEY (id_ship) REFERENCES SHIP (id_ship)
+);
+
+CREATE TABLE PLANET_DEFENSE(
+    id_planet number,
+    id_defense number,
+    cant number,
+    level number,
+
+    CONSTRAINT id_planet
+    FOREIGN KEY (id_planet) REFERENCES PLANET (id_planet),
+    CONSTRAINT id_defense
+    FOREIGN KEY (id_defense) REFERENCES DEFENSE (id_defense)
+);
 
 CREATE TABLE USERS(
     id_user NUMBER(5) PRIMARY KEY,
