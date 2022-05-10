@@ -1,45 +1,37 @@
-DROP TABLE PLANET;
-DROP TABLE USERS;
+DROP TABLE BattleLog;
+DROP TABLE PLANET_SHIP;
+DROP TABLE PLANET_DEFENSE;
 DROP TABLE WARSHIPS;
 DROP TABLE DEFENSE;
-DROP TABLE BattleLog;
+DROP TABLE PLANET;
+DROP TABLE USERS;
 
-CREATE TABLE PLANET (
-    id_planet number PRIMARY KEY,
-    id_user number,
-    CONSTRAINT id_user
-    FOREIGN KEY (id_user) REFERENCES USERS (id_user)
-);
-
-CREATE TABLE PLANET_SHIP(
-    id_planet number,
-    id_ship number,
-    cant number,
-    level number,
-
-    CONSTRAINT id_planet
-    FOREIGN KEY (id_planet) REFERENCES PLANET (id_planet),
-    CONSTRAINT id_ship
-    FOREIGN KEY (id_ship) REFERENCES SHIP (id_ship)
-);
-
-CREATE TABLE PLANET_DEFENSE(
-    id_planet number,
-    id_defense number,
-    cant number,
-    level number,
-
-    CONSTRAINT id_planet
-    FOREIGN KEY (id_planet) REFERENCES PLANET (id_planet),
-    CONSTRAINT id_defense
-    FOREIGN KEY (id_defense) REFERENCES DEFENSE (id_defense)
-);
 
 CREATE TABLE USERS(
     id_user NUMBER(5) PRIMARY KEY,
     username varchar2(50),
     birth_date date,
     password varchar2(50)
+);
+
+CREATE TABLE PLANET (
+    id_planet number PRIMARY KEY,
+    id_user number,
+    CONSTRAINT planet_id_user
+    FOREIGN KEY (id_user) REFERENCES USERS (id_user)
+);
+
+CREATE TABLE DEFENSE(
+    id_defense NUMBER(5) PRIMARY KEY,
+    name varchar2(50),
+    metal_cost number,
+    crystal_cost number,
+    deuterium_cost number,
+    initial_armor number,
+    armor number,
+    basedamage number,
+    speed number,
+    generate_wastings number
 );
 
 CREATE TABLE WARSHIPS (
@@ -55,17 +47,26 @@ CREATE TABLE WARSHIPS (
     generate_wastings number
 );
 
-CREATE TABLE DEFENSE(
-    id_ship NUMBER(5) PRIMARY KEY,
-    name varchar2(50),
-    metal_cost number,
-    crystal_cost number,
-    deuterium_cost number,
-    initial_armor number,
-    armor number,
-    basedamage number,
-    speed number,
-    generate_wastings number
+CREATE TABLE PLANET_SHIP(
+    id_planet number,
+    id_warship number,
+    cant number,
+    ship_level number,
+
+    CONSTRAINT planet_ship_id_planet
+    FOREIGN KEY (id_planet) REFERENCES PLANET (id_planet),
+    CONSTRAINT planet_ship_id_warship
+    FOREIGN KEY (id_warship) REFERENCES WARSHIPS (id_ship)
+);
+CREATE TABLE PLANET_DEFENSE(
+    id_planet number,
+    id_defense number,
+    cant number,
+    defLevel number,
+    CONSTRAINT planet_defense_id_planet
+    FOREIGN KEY (id_planet) REFERENCES PLANET (id_planet),
+    CONSTRAINT planet_defense_id_defense
+    FOREIGN KEY (id_defense) REFERENCES DEFENSE (id_defense)
 );
 
 CREATE TABLE BattleLog(
@@ -92,6 +93,6 @@ CREATE TABLE BattleLog(
     enemieBattleShip_end number,
     enemieArmoredShip_end number,
     
-    CONSTRAINT id_user
+    CONSTRAINT battlelog_id_user
     FOREIGN KEY (id_user) REFERENCES USERS (id_user)
 );
