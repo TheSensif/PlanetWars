@@ -48,6 +48,19 @@ public class Main extends JFrame implements ActionListener,MouseListener {
         derecha.setLayout(new BoxLayout(derecha, BoxLayout.Y_AXIS));
         derecha.add(arriba);
         arriba.setBackground(Color.BLACK);
+
+        metal = new JLabel();
+        nMetal = new JLabel();
+
+        arriba.add(metal);
+        arriba.add(nMetal);
+
+        deuterium = new JLabel();
+        nDeuterium = new JLabel();
+
+        arriba.add(deuterium);
+        arriba.add(nDeuterium);
+
         derecha.add(abajo);
         abajo.setBackground(Color.PINK);
 
