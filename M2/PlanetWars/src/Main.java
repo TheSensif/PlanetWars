@@ -17,7 +17,10 @@ public class Main extends JFrame implements ActionListener,MouseListener {
     private JMenu ViewPlanetStats,Build,UpgradeTecnology,ViewBattleReports,Exit;
 	private JMenuItem BuildDefense,BuildShips,AttackTechnology,DefenseTechnology;
     private JPanel center;
+    //Materiales
     private JLabel metal,nMetal,deuterium,nDeuterium;
+    //Army
+    private JLabel imagenArmy,nombreArmy,cant;
     private String nombrePlaneta = "planeta";
 
     public Main() {
@@ -30,9 +33,114 @@ public class Main extends JFrame implements ActionListener,MouseListener {
         center.setBackground(Color.white);
 
         center.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), nombrePlaneta, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+        //Panel Proincipal
+        center.setLayout(new BoxLayout(center, BoxLayout.X_AXIS));
+        JPanel derecha = new JPanel();
+        JPanel izquierda = new JPanel();
+        center.add(derecha);
+        derecha.setBackground(Color.CYAN);
+        center.add(izquierda);
+        izquierda.setBackground(Color.BLUE);
+
+        //Panel derecha
+        JPanel arriba = new JPanel();
+        JPanel abajo = new JPanel();
+        derecha.setLayout(new BoxLayout(derecha, BoxLayout.Y_AXIS));
+        derecha.add(arriba);
+        arriba.setBackground(Color.BLACK);
+        derecha.add(abajo);
+        abajo.setBackground(Color.PINK);
+
+        //Paneles arrmy
+
+        JPanel ar1 = new JPanel();
+        JPanel ar2 = new JPanel();
+        JPanel ar3 = new JPanel();
+        JPanel ar4 = new JPanel();
+        JPanel ar5 = new JPanel();
+        JPanel ar6 = new JPanel();
+        JPanel ar7 = new JPanel();
+
+        izquierda.setLayout(new BoxLayout(izquierda, BoxLayout.Y_AXIS));
+
+        izquierda.add(ar1);
+        ar1.setBackground(Color.ORANGE);
+        imagenArmy = new JLabel();
+        nombreArmy = new JLabel();
+        cant = new JLabel();
+
+        ar1.add(imagenArmy);
+        ar1.add(nombreArmy);
+        ar1.add(cant);
+
+        izquierda.add(ar2);
+        ar2.setBackground(Color.MAGENTA);
+        imagenArmy = new JLabel();
+        nombreArmy = new JLabel();
+        cant = new JLabel();
+
+        ar1.add(imagenArmy);
+        ar1.add(nombreArmy);
+        ar1.add(cant);
+
+        izquierda.add(ar3);
+        ar3.setBackground(Color.BLUE);
+
+        imagenArmy = new JLabel();
+        nombreArmy = new JLabel();
+        cant = new JLabel();
+
+        ar1.add(imagenArmy);
+        ar1.add(nombreArmy);
+        ar1.add(cant);
+
+        izquierda.add(ar4);
+        ar4.setBackground(Color.GRAY);
+
+        imagenArmy = new JLabel();
+        nombreArmy = new JLabel();
+        cant = new JLabel();
+
+        ar1.add(imagenArmy);
+        ar1.add(nombreArmy);
+        ar1.add(cant);
+
+        izquierda.add(ar5);
+        ar5.setBackground(Color.RED);
+
+        imagenArmy = new JLabel();
+        nombreArmy = new JLabel();
+        cant = new JLabel();
+
+        ar1.add(imagenArmy);
+        ar1.add(nombreArmy);
+        ar1.add(cant);
+
+        izquierda.add(ar6);
+        ar6.setBackground(Color.BLACK);
+
+        imagenArmy = new JLabel();
+        nombreArmy = new JLabel();
+        cant = new JLabel();
+
+        ar1.add(imagenArmy);
+        ar1.add(nombreArmy);
+        ar1.add(cant);
+
+        izquierda.add(ar7);
+        ar7.setBackground(Color.GREEN);
+
+        imagenArmy = new JLabel();
+        nombreArmy = new JLabel();
+        cant = new JLabel();
+
+        ar1.add(imagenArmy);
+        ar1.add(nombreArmy);
+        ar1.add(cant);
 
         //panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), nombrePlaneta, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 
+        /*
         metal = new JLabel("Metal:");
         nMetal = new JLabel("0");
         deuterium = new JLabel("Deuterium:");
@@ -42,6 +150,8 @@ public class Main extends JFrame implements ActionListener,MouseListener {
         center.add(nMetal);
         center.add(deuterium);
         center.add(nDeuterium);
+
+         */
         /*
         metal = new JLabel("Metal");
         nMetal = new JLabel("0");
