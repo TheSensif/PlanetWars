@@ -1,8 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.Box;
@@ -23,7 +28,7 @@ public class Main extends JFrame implements ActionListener,MouseListener {
     private JLabel imagenArmy,nombreArmy,cant;
     private String nombrePlaneta = "planeta";
 
-    public Main() {
+    public Main() throws IOException {
         menu = new JMenuBar();
         add(menu, BorderLayout.NORTH);
         menu.add(Box.createRigidArea(new Dimension(20,50)));
@@ -38,31 +43,34 @@ public class Main extends JFrame implements ActionListener,MouseListener {
         JPanel derecha = new JPanel();
         JPanel izquierda = new JPanel();
         center.add(derecha);
-        derecha.setBackground(Color.CYAN);
+        derecha.setBackground(Color.WHITE);
         center.add(izquierda);
-        izquierda.setBackground(Color.BLUE);
+        izquierda.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Army", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+        izquierda.setBackground(Color.WHITE);
 
         //Panel derecha
         JPanel arriba = new JPanel();
         JPanel abajo = new JPanel();
         derecha.setLayout(new BoxLayout(derecha, BoxLayout.Y_AXIS));
         derecha.add(arriba);
-        arriba.setBackground(Color.BLACK);
+        arriba.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Recursos", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+        arriba.setBackground(Color.WHITE);
 
-        metal = new JLabel();
-        nMetal = new JLabel();
+        metal = new JLabel("Metal:");
+        nMetal = new JLabel("0");
 
         arriba.add(metal);
         arriba.add(nMetal);
 
-        deuterium = new JLabel();
-        nDeuterium = new JLabel();
+        deuterium = new JLabel("Deuterium:");
+        nDeuterium = new JLabel("0");
 
         arriba.add(deuterium);
         arriba.add(nDeuterium);
 
         derecha.add(abajo);
-        abajo.setBackground(Color.PINK);
+        abajo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Defensa", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+        abajo.setBackground(Color.WHITE);
 
         //Paneles arrmy
 
@@ -78,9 +86,18 @@ public class Main extends JFrame implements ActionListener,MouseListener {
 
         izquierda.add(ar1);
         ar1.setBackground(Color.ORANGE);
+
+        BufferedImage bufferedImage = ImageIO.read(new File("./src/caza.jpg"));
+        Image image = bufferedImage.getScaledInstance(75, 75, Image.SCALE_DEFAULT);
+
+        ImageIcon icon = new ImageIcon(image);
+
+
         imagenArmy = new JLabel();
-        nombreArmy = new JLabel();
-        cant = new JLabel();
+        imagenArmy.setLocation(0,0);
+        imagenArmy.setIcon(icon);
+        nombreArmy = new JLabel("a");
+        cant = new JLabel("a");
 
         ar1.add(imagenArmy);
         ar1.add(nombreArmy);
@@ -88,68 +105,68 @@ public class Main extends JFrame implements ActionListener,MouseListener {
 
         izquierda.add(ar2);
         ar2.setBackground(Color.MAGENTA);
-        imagenArmy = new JLabel();
-        nombreArmy = new JLabel();
-        cant = new JLabel();
+        imagenArmy = new JLabel("imagen");
+        nombreArmy = new JLabel("a");
+        cant = new JLabel("a");
 
-        ar1.add(imagenArmy);
-        ar1.add(nombreArmy);
-        ar1.add(cant);
+        ar2.add(imagenArmy);
+        ar2.add(nombreArmy);
+        ar2.add(cant);
 
         izquierda.add(ar3);
         ar3.setBackground(Color.BLUE);
 
-        imagenArmy = new JLabel();
-        nombreArmy = new JLabel();
-        cant = new JLabel();
+        imagenArmy = new JLabel("imagen");
+        nombreArmy = new JLabel("a");
+        cant = new JLabel("a");
 
-        ar1.add(imagenArmy);
-        ar1.add(nombreArmy);
-        ar1.add(cant);
+        ar3.add(imagenArmy);
+        ar3.add(nombreArmy);
+        ar3.add(cant);
 
         izquierda.add(ar4);
         ar4.setBackground(Color.GRAY);
 
-        imagenArmy = new JLabel();
-        nombreArmy = new JLabel();
-        cant = new JLabel();
+        imagenArmy = new JLabel("imagen");
+        nombreArmy = new JLabel("a");
+        cant = new JLabel("a");
 
-        ar1.add(imagenArmy);
-        ar1.add(nombreArmy);
-        ar1.add(cant);
+        ar4.add(imagenArmy);
+        ar4.add(nombreArmy);
+        ar4.add(cant);
 
         izquierda.add(ar5);
         ar5.setBackground(Color.RED);
 
-        imagenArmy = new JLabel();
-        nombreArmy = new JLabel();
-        cant = new JLabel();
+        imagenArmy = new JLabel("imagen");
+        nombreArmy = new JLabel("a");
+        cant = new JLabel("a");
 
-        ar1.add(imagenArmy);
-        ar1.add(nombreArmy);
-        ar1.add(cant);
+        ar5.add(imagenArmy);
+        ar5.add(nombreArmy);
+        ar5.add(cant);
 
         izquierda.add(ar6);
         ar6.setBackground(Color.BLACK);
 
-        imagenArmy = new JLabel();
-        nombreArmy = new JLabel();
-        cant = new JLabel();
+        imagenArmy = new JLabel("imagen");
+        nombreArmy = new JLabel("a");
+        cant = new JLabel("a");
 
-        ar1.add(imagenArmy);
-        ar1.add(nombreArmy);
-        ar1.add(cant);
+        ar6.add(imagenArmy);
+        ar6.add(nombreArmy);
+        ar6.add(cant);
 
         izquierda.add(ar7);
         ar7.setBackground(Color.GREEN);
 
-        imagenArmy = new JLabel();
-        nombreArmy = new JLabel();
-        cant = new JLabel();
+        imagenArmy = new JLabel("imagen");
+        nombreArmy = new JLabel("a");
+        cant = new JLabel("a");
 
-        ar1.add(imagenArmy);
-        ar1.add(nombreArmy);
-        ar1.add(cant);
+        ar7.add(imagenArmy);
+        ar7.add(nombreArmy);
+        ar7.add(cant);
 
         //panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), nombrePlaneta, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 
@@ -235,7 +252,7 @@ public class Main extends JFrame implements ActionListener,MouseListener {
         this.setVisible(true);
     }
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Main m = new Main();
 		Planet p = new Planet();
 		Timer timer = new Timer();
