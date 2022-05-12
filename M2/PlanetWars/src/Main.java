@@ -8,15 +8,51 @@ import java.awt.*;
 import javax.swing.Box;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class Main extends JFrame implements ActionListener,MouseListener {
 
     private JMenuBar menu;
     private JMenu ViewPlanetStats,Build,UpgradeTecnology,ViewBattleReports,Exit;
 	private JMenuItem BuildDefense,BuildShips,AttackTechnology,DefenseTechnology;
+    private JPanel center;
+    private JLabel metal,nMetal,deuterium,nDeuterium;
+    private String nombrePlaneta = "planeta";
 
     public Main() {
         menu = new JMenuBar();
+        add(menu, BorderLayout.NORTH);
+        menu.add(Box.createRigidArea(new Dimension(20,50)));
+
+        center = new JPanel();
+        this.add(center);
+        center.setBackground(Color.white);
+
+        center.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), nombrePlaneta, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+
+        //panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), nombrePlaneta, TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+
+        metal = new JLabel("Metal:");
+        nMetal = new JLabel("0");
+        deuterium = new JLabel("Deuterium:");
+        nDeuterium = new JLabel("2");
+
+        center.add(metal);
+        center.add(nMetal);
+        center.add(deuterium);
+        center.add(nDeuterium);
+        /*
+        metal = new JLabel("Metal");
+        nMetal = new JLabel("0");
+        panel.add(metal,BorderLayout.CENTER);
+        panel.add(nMetal,BorderLayout.CENTER);
+
+         */
+
+
+
+
 
         ViewPlanetStats = new JMenu("<html><p style='text-align:center;width:150px;'>View Planet Stats</p></html>");
         Build = new JMenu("<html><p style='text-align:center;width:150px;'>Build");
@@ -52,8 +88,7 @@ public class Main extends JFrame implements ActionListener,MouseListener {
         AttackTechnology.addActionListener(this);
         DefenseTechnology.addActionListener(this);
 
-        add(menu, BorderLayout.NORTH);
-        menu.add(Box.createRigidArea(new Dimension(20,50)));
+
         //menu.setMargin(new Insets(0,50,0,50));
 
         this.setTitle("Planet Wars");
