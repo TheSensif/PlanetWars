@@ -10,7 +10,7 @@ public interface MilitaryUnit {
 	// Nos devolverá el coste de Metal que tiene crear una nueva unidad.
 	abstract int getDeuteriumCost();
 	// Nos devolverá el coste de Deuterium que tiene crear una nueva unidad.
-	abstract int getChanceGeneratinWaste();
+	abstract int[] getChanceGeneratinWaste();
 	// Nos la probabilidad de generar residuos al ser totalmente eliminada (blindaje 0 o inferior).
 	abstract int getChanceAttackAgain();
 	// Nos la probabilidad de generar volver a atacar.

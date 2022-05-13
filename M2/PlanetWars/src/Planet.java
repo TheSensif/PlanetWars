@@ -4,12 +4,13 @@ import java.util.Iterator;
 public class Planet implements Variables{
 	private int technologyDefense;
 	private int technologyAtack;
-	private int metal;
-	private int deuterium;
+	private int metal = 1000000;
+	private int deuterium = 1000;
 	private int upgradeDefenseTechnologyDeuteriumCost;
 	private int upgradeAttackTechnologyDeuteriumCost;
 	private ArrayList<MilitaryUnit>[] army = new ArrayList[7];
-	
+	private BaseDatos bd;
+	private Main m;
 	public int getTechnologyDefense() {
 		return technologyDefense;
 	}
@@ -53,19 +54,24 @@ public class Planet implements Variables{
 		this.army = army;
 	}
 	
+	public Planet()
+	{
+		army[0] = new ArrayList<MilitaryUnit>();
+		army[1] = new ArrayList<MilitaryUnit>();
+		army[2] = new ArrayList<MilitaryUnit>();
+		army[3] = new ArrayList<MilitaryUnit>();
+		army[4] = new ArrayList<MilitaryUnit>();
+		army[5] = new ArrayList<MilitaryUnit>();
+		army[6] = new ArrayList<MilitaryUnit>();
+	}
+	
 	public static void main(String[] args) {
 		Planet p = new Planet();
-		p.army[0] = new ArrayList<MilitaryUnit>();
-		p.army[1] = new ArrayList<MilitaryUnit>();
-		p.army[2] = new ArrayList<MilitaryUnit>();
-		p.army[3] = new ArrayList<MilitaryUnit>();
-		p.army[4] = new ArrayList<MilitaryUnit>();
-		p.army[5] = new ArrayList<MilitaryUnit>();
-		p.army[6] = new ArrayList<MilitaryUnit>();
-		
 		try {
-			p.upgradeTechnologyDefense();
+			p.addLigthHunter(10, 1);
 		} catch (ResourceException e) { }
+		
+		
 	}
 	
 	public void upgradeTechnologyDefense() throws ResourceException
@@ -129,26 +135,26 @@ public class Planet implements Variables{
 	}
 	
 	
-	public void addLigthHunter(int n) throws ResourceException
+	public void addLigthHunter(int planetID, int n) throws ResourceException
 	{
-		if (getDeuterium() >= (DEUTERIUM_COST_LIGTHHUNTER * n) && getMetal() >= (METAL_COST_LIGTHHUNTER * n)) {
+		if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_LIGTHHUNTER * n) && bd.getPlanetMetal(1) >= (METAL_COST_LIGTHHUNTER * n)) {
 			System.out.println("Se pueden comprar todos");
-			setMetal(getMetal() - METAL_COST_LIGTHHUNTER * n);
-			setDeuterium(getDeuterium() - (DEUTERIUM_COST_LIGTHHUNTER * n));
+			setMetal(bd.getPlanetMetal(1) - METAL_COST_LIGTHHUNTER * n);
+			setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_LIGTHHUNTER * n));
 			for (int i = 0; i < n; i++) {
-				army[0].add(new LightHunter(ARMOR_LIGTHHUNTER,ARMOR_LIGTHHUNTER, BASE_DAMAGE_LIGTHHUNTER));
+				army[0].add(new LightHunter(ARMOR_LIGTHHUNTER, BASE_DAMAGE_LIGTHHUNTER));
 			}
 			System.out.println(army[0].toString());
 		}
 		else
 		{
 			for (int i = 0; i < n; i++) {
-				if (getDeuterium() >= (DEUTERIUM_COST_LIGTHHUNTER * (n-i)) && getMetal() >= (METAL_COST_LIGTHHUNTER * (n-i))) {
+				if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_LIGTHHUNTER * (n-i)) && bd.getPlanetMetal(1) >= (METAL_COST_LIGTHHUNTER * (n-i))) {
 					System.out.println("Se pueden comprar " + (n-i));
-					setMetal(getMetal() - (METAL_COST_LIGTHHUNTER * (n-i)));
-					setDeuterium(getDeuterium() - (DEUTERIUM_COST_LIGTHHUNTER * (n-i)));
+					setMetal(bd.getPlanetMetal(1) - (METAL_COST_LIGTHHUNTER * (n-i)));
+					setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_LIGTHHUNTER * (n-i)));
 					for (int j = 0; j < (n-i); j++) {
-						army[0].add(new LightHunter(ARMOR_LIGTHHUNTER,ARMOR_LIGTHHUNTER, BASE_DAMAGE_LIGTHHUNTER));
+						army[0].add(new LightHunter(ARMOR_LIGTHHUNTER, BASE_DAMAGE_LIGTHHUNTER));
 					}
 					break;
 				}
@@ -160,24 +166,24 @@ public class Planet implements Variables{
 	
 	public void addHeavyHunter(int n) throws ResourceException
 		{
-			if (getDeuterium() >= (DEUTERIUM_COST_HEAVYHUNTER * n) && getMetal() >= (METAL_COST_HEAVYHUNTER * n)) {
+			if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_HEAVYHUNTER * n) && bd.getPlanetMetal(1) >= (METAL_COST_HEAVYHUNTER * n)) {
 				System.out.println("Se pueden comprar todos");
-				setMetal(getMetal() - METAL_COST_HEAVYHUNTER * n);
-				setDeuterium(getDeuterium() - (DEUTERIUM_COST_HEAVYHUNTER * n));
+				setMetal(bd.getPlanetMetal(1) - METAL_COST_HEAVYHUNTER * n);
+				setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_HEAVYHUNTER * n));
 				for (int i = 0; i < n; i++) {
-					army[1].add(new HeavyHunter(ARMOR_HEAVYHUNTER,ARMOR_HEAVYHUNTER, BASE_DAMAGE_HEAVYHUNTER));
+					army[1].add(new HeavyHunter(ARMOR_HEAVYHUNTER, BASE_DAMAGE_HEAVYHUNTER));
 				}
 				System.out.println(army[0].toString());
 			}
 			else
 			{
 				for (int i = 0; i < n; i++) {
-					if (getDeuterium() >= (DEUTERIUM_COST_HEAVYHUNTER * (n-i)) && getMetal() >= (METAL_COST_HEAVYHUNTER * (n-i))) {
+					if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_HEAVYHUNTER * (n-i)) && bd.getPlanetMetal(1) >= (METAL_COST_HEAVYHUNTER * (n-i))) {
 						System.out.println("Se pueden comprar " + (n-i));
-						setMetal(getMetal() - (METAL_COST_HEAVYHUNTER * (n-i)));
-						setDeuterium(getDeuterium() - (DEUTERIUM_COST_HEAVYHUNTER * (n-i)));
+						setMetal(bd.getPlanetMetal(1) - (METAL_COST_HEAVYHUNTER * (n-i)));
+						setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_HEAVYHUNTER * (n-i)));
 						for (int j = 0; j < (n-i); j++) {
-							army[1].add(new HeavyHunter(ARMOR_HEAVYHUNTER,ARMOR_HEAVYHUNTER, BASE_DAMAGE_HEAVYHUNTER));
+							army[1].add(new HeavyHunter(ARMOR_HEAVYHUNTER, BASE_DAMAGE_HEAVYHUNTER));
 						}
 						break;
 					}
@@ -189,24 +195,24 @@ public class Planet implements Variables{
 
 	public void addBattleShip(int n) throws ResourceException
 	{
-		if (getDeuterium() >= (DEUTERIUM_COST_BATTLESHIP * n) && getMetal() >= (METAL_COST_BATTLESHIP * n)) {
+		if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_BATTLESHIP * n) && bd.getPlanetMetal(1) >= (METAL_COST_BATTLESHIP * n)) {
 			System.out.println("Se pueden comprar todos");
-			setMetal(getMetal() - METAL_COST_BATTLESHIP * n);
+			setMetal(bd.getPlanetMetal(1) - METAL_COST_BATTLESHIP * n);
 			setDeuterium(getDeuterium() - (DEUTERIUM_COST_BATTLESHIP * n));
 			for (int i = 0; i < n; i++) {
-				army[2].add(new BattleShip(ARMOR_BATTLESHIP,ARMOR_BATTLESHIP, BASE_DAMAGE_BATTLESHIP));
+				army[2].add(new BattleShip(ARMOR_BATTLESHIP, BASE_DAMAGE_BATTLESHIP));
 			}
 			System.out.println(army[0].toString());
 		}
 		else
 		{
 			for (int i = 0; i < n; i++) {
-				if (getDeuterium() >= (DEUTERIUM_COST_BATTLESHIP * (n-i)) && getMetal() >= (METAL_COST_BATTLESHIP * (n-i))) {
+				if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_BATTLESHIP * (n-i)) && bd.getPlanetMetal(1) >= (METAL_COST_BATTLESHIP * (n-i))) {
 					System.out.println("Se pueden comprar " + (n-i));
-					setMetal(getMetal() - (METAL_COST_BATTLESHIP * (n-i)));
-					setDeuterium(getDeuterium() - (DEUTERIUM_COST_BATTLESHIP * (n-i)));
+					setMetal(bd.getPlanetMetal(1) - (METAL_COST_BATTLESHIP * (n-i)));
+					setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_BATTLESHIP * (n-i)));
 					for (int j = 0; j < (n-i); j++) {
-						army[2].add(new BattleShip(ARMOR_BATTLESHIP,ARMOR_BATTLESHIP, BASE_DAMAGE_BATTLESHIP));
+						army[2].add(new BattleShip(ARMOR_BATTLESHIP, BASE_DAMAGE_BATTLESHIP));
 					}
 					break;
 				}
@@ -218,24 +224,24 @@ public class Planet implements Variables{
 	
 	public void addArmoredShip(int n) throws ResourceException
 	{
-		if (getDeuterium() >= (DEUTERIUM_COST_ARMOREDSHIP * n) && getMetal() >= (METAL_COST_ARMOREDSHIP * n)) {
+		if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_ARMOREDSHIP * n) && bd.getPlanetMetal(1) >= (METAL_COST_ARMOREDSHIP * n)) {
 			System.out.println("Se pueden comprar todos");
-			setMetal(getMetal() - METAL_COST_ARMOREDSHIP * n);
-			setDeuterium(getDeuterium() - (DEUTERIUM_COST_ARMOREDSHIP * n));
+			setMetal(bd.getPlanetMetal(1) - METAL_COST_ARMOREDSHIP * n);
+			setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_ARMOREDSHIP * n));
 			for (int i = 0; i < n; i++) {
-				army[3].add(new ArmoredShip(ARMOR_ARMOREDSHIP,ARMOR_ARMOREDSHIP, BASE_DAMAGE_ARMOREDSHIP));
+				army[3].add(new ArmoredShip(ARMOR_ARMOREDSHIP, BASE_DAMAGE_ARMOREDSHIP));
 			}
 			System.out.println(army[0].toString());
 		}
 		else
 		{
 			for (int i = 0; i < n; i++) {
-				if (getDeuterium() >= (DEUTERIUM_COST_ARMOREDSHIP * (n-i)) && getMetal() >= (METAL_COST_ARMOREDSHIP * (n-i))) {
+				if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_ARMOREDSHIP * (n-i)) && bd.getPlanetMetal(1) >= (METAL_COST_ARMOREDSHIP * (n-i))) {
 					System.out.println("Se pueden comprar " + (n-i));
-					setMetal(getMetal() - (METAL_COST_ARMOREDSHIP * (n-i)));
-					setDeuterium(getDeuterium() - (DEUTERIUM_COST_ARMOREDSHIP * (n-i)));
+					setMetal(bd.getPlanetMetal(1) - (METAL_COST_ARMOREDSHIP * (n-i)));
+					setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_ARMOREDSHIP * (n-i)));
 					for (int j = 0; j < (n-i); j++) {
-						army[3].add(new ArmoredShip(ARMOR_ARMOREDSHIP,ARMOR_ARMOREDSHIP, BASE_DAMAGE_ARMOREDSHIP));
+						army[3].add(new ArmoredShip(ARMOR_ARMOREDSHIP, BASE_DAMAGE_ARMOREDSHIP));
 					}
 					break;
 				}
@@ -247,10 +253,10 @@ public class Planet implements Variables{
 	
 	public void addMissileLauncher(int n) throws ResourceException
 	{
-		if (getDeuterium() >= (DEUTERIUM_COST_MISSILELAUNCHER * n) && getMetal() >= (METAL_COST_MISSILELAUNCHER * n)) {
+		if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_MISSILELAUNCHER * n) && bd.getPlanetMetal(1) >= (METAL_COST_MISSILELAUNCHER * n)) {
 			System.out.println("Se pueden comprar todos");
-			setMetal(getMetal() - METAL_COST_MISSILELAUNCHER * n);
-			setDeuterium(getDeuterium() - (DEUTERIUM_COST_MISSILELAUNCHER * n));
+			setMetal(bd.getPlanetMetal(1) - METAL_COST_MISSILELAUNCHER * n);
+			setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_MISSILELAUNCHER * n));
 			for (int i = 0; i < n; i++) {
 				army[4].add(new MisileLauncher(ARMOR_MISSILELAUNCHER,BASE_DAMAGE_MISSILELAUNCHER));
 			}
@@ -259,10 +265,10 @@ public class Planet implements Variables{
 		else
 		{
 			for (int i = 0; i < n; i++) {
-				if (getDeuterium() >= (DEUTERIUM_COST_MISSILELAUNCHER * (n-i)) && getMetal() >= (METAL_COST_MISSILELAUNCHER * (n-i))) {
+				if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_MISSILELAUNCHER * (n-i)) && bd.getPlanetMetal(1) >= (METAL_COST_MISSILELAUNCHER * (n-i))) {
 					System.out.println("Se pueden comprar " + (n-i));
-					setMetal(getMetal() - (METAL_COST_MISSILELAUNCHER * (n-i)));
-					setDeuterium(getDeuterium() - (DEUTERIUM_COST_MISSILELAUNCHER * (n-i)));
+					setMetal(bd.getPlanetMetal(1) - (METAL_COST_MISSILELAUNCHER * (n-i)));
+					setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_MISSILELAUNCHER * (n-i)));
 					for (int j = 0; j < (n-i); j++) {
 						army[4].add(new MisileLauncher(ARMOR_MISSILELAUNCHER,BASE_DAMAGE_MISSILELAUNCHER));
 					}
@@ -276,10 +282,10 @@ public class Planet implements Variables{
 	
 	public void addIonCannon(int n) throws ResourceException
 	{
-		if (getDeuterium() >= (DEUTERIUM_COST_IONCANNON * n) && getMetal() >= (METAL_COST_IONCANNON * n)) {
+		if (bd.getPlanetDeuterium(1)  >= (DEUTERIUM_COST_IONCANNON * n) && bd.getPlanetMetal(1) >= (METAL_COST_IONCANNON * n)) {
 			System.out.println("Se pueden comprar todos");
-			setMetal(getMetal() - METAL_COST_IONCANNON * n);
-			setDeuterium(getDeuterium() - (DEUTERIUM_COST_IONCANNON * n));
+			setMetal(bd.getPlanetMetal(1) - METAL_COST_IONCANNON * n);
+			setDeuterium(bd.getPlanetDeuterium(1)  - (DEUTERIUM_COST_IONCANNON * n));
 			for (int i = 0; i < n; i++) {
 				army[5].add(new IonCannon(ARMOR_IONCANNON,BASE_DAMAGE_IONCANNON));
 			}
@@ -288,10 +294,10 @@ public class Planet implements Variables{
 		else
 		{
 			for (int i = 0; i < n; i++) {
-				if (getDeuterium() >= (DEUTERIUM_COST_IONCANNON * (n-i)) && getMetal() >= (METAL_COST_IONCANNON * (n-i))) {
+				if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_IONCANNON * (n-i)) && bd.getPlanetMetal(1) >= (METAL_COST_IONCANNON * (n-i))) {
 					System.out.println("Se pueden comprar " + (n-i));
-					setMetal(getMetal() - (METAL_COST_IONCANNON * (n-i)));
-					setDeuterium(getDeuterium() - (DEUTERIUM_COST_IONCANNON * (n-i)));
+					setMetal(bd.getPlanetMetal(1) - (METAL_COST_IONCANNON * (n-i)));
+					setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_IONCANNON * (n-i)));
 					for (int j = 0; j < (n-i); j++) {
 						army[5].add(new IonCannon(ARMOR_IONCANNON,BASE_DAMAGE_IONCANNON));
 					}
@@ -305,10 +311,10 @@ public class Planet implements Variables{
 	
 	public void addPlasmaCannon(int n) throws ResourceException
 	{
-		if (getDeuterium() >= (DEUTERIUM_COST_PLASMACANNON * n) && getMetal() >= (METAL_COST_PLASMACANNON * n)) {
+		if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_PLASMACANNON * n) && bd.getPlanetMetal(1) >= (METAL_COST_PLASMACANNON * n)) {
 			System.out.println("Se pueden comprar todos");
-			setMetal(getMetal() - METAL_COST_PLASMACANNON * n);
-			setDeuterium(getDeuterium() - (DEUTERIUM_COST_PLASMACANNON * n));
+			setMetal(bd.getPlanetMetal(1) - METAL_COST_PLASMACANNON * n);
+			setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_PLASMACANNON * n));
 			for (int i = 0; i < n; i++) {
 				army[6].add(new PlasmaCannon(ARMOR_PLASMACANNON,BASE_DAMAGE_PLASMACANNON));
 			}
@@ -317,10 +323,10 @@ public class Planet implements Variables{
 		else
 		{
 			for (int i = 0; i < n; i++) {
-				if (getDeuterium() >= (DEUTERIUM_COST_PLASMACANNON * (n-i)) && getMetal() >= (METAL_COST_PLASMACANNON * (n-i))) {
+				if (bd.getPlanetDeuterium(1) >= (DEUTERIUM_COST_PLASMACANNON * (n-i)) && bd.getPlanetMetal(1) >= (METAL_COST_PLASMACANNON * (n-i))) {
 					System.out.println("Se pueden comprar " + (n-i));
-					setMetal(getMetal() - (METAL_COST_PLASMACANNON * (n-i)));
-					setDeuterium(getDeuterium() - (DEUTERIUM_COST_PLASMACANNON * (n-i)));
+					setMetal(bd.getPlanetMetal(1) - (METAL_COST_PLASMACANNON * (n-i)));
+					setDeuterium(bd.getPlanetDeuterium(1) - (DEUTERIUM_COST_PLASMACANNON * (n-i)));
 					for (int j = 0; j < (n-i); j++) {
 						army[6].add(new PlasmaCannon(ARMOR_PLASMACANNON,BASE_DAMAGE_PLASMACANNON));
 					}
@@ -335,19 +341,22 @@ public class Planet implements Variables{
 	
 	public void refreshPlanetStats()
 	{
-		String planetName = "SICKLAND";
+		String planetName = bd.getPlanetName(1);
 		
-		int LightHunterUnits = 0;
-		int HeavyHunterUnits = 0;
-		int BattleShipUnits = 0;
-		int ArmoredShipUnits = 0;
+		int LightHunterUnits = getArmy()[0].size();
+		int HeavyHunterUnits =  getArmy()[1].size();;
+		int BattleShipUnits =  getArmy()[2].size();;
+		int ArmoredShipUnits =  getArmy()[3].size();;
 		
-		int MissileLauncherUnits = 0;
-		int IonCannonUnits = 0;
-		int PlasmaCannonUnits = 0;
+		int MissileLauncherUnits =  getArmy()[4].size();;
+		int IonCannonUnits =  getArmy()[5].size();;
+		int PlasmaCannonUnits =  getArmy()[6].size();;
+
+		Integer metal = getMetal();
+		Integer deuterium = getDeuterium();
 		
-		int Metal = 0;
-		int Deuterium = 0;
+		m.getnMetal().setText(metal.toString());
+		m.getnDeuterium().setText(deuterium.toString());
 	}
 }
 

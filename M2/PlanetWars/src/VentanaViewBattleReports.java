@@ -10,7 +10,7 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
 
     private JMenuBar menu;
     private JMenu ViewPlanetStats,Build,UpgradeTecnology,ViewBattleReports,Exit;
-    private JMenuItem BuildDefense,BuildShips,AttackTechnology,DefenseTechnology;
+    private JMenuItem BuildDefense,BuildShips;
 
     public VentanaViewBattleReports() {
         menu = new JMenuBar();
@@ -24,14 +24,8 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
         BuildDefense = new JMenuItem("<html><p style='text-align:center;width:140px;'>Defense");
         BuildShips = new JMenuItem("<html><p style='text-align:center;width:140px;'>Ships");
 
-        AttackTechnology = new JMenuItem("<html><p style='text-align:center;width:140px;'>Attack Technology");
-        DefenseTechnology = new JMenuItem("<html><p style='text-align:center;width:140px;'>Defense Technology");
-
-
         Build.add(BuildShips);
         Build.add(BuildDefense);
-        UpgradeTecnology.add(AttackTechnology);
-        UpgradeTecnology.add(DefenseTechnology);
 
         menu.add(ViewPlanetStats);
         menu.add(Build);
@@ -42,12 +36,12 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
         ViewPlanetStats.addMouseListener(this);
         ViewBattleReports.addMouseListener(this);
         Exit.addMouseListener(this);
+        UpgradeTecnology.addMouseListener(this);
 
 
         BuildShips.addActionListener(this);
         BuildDefense.addActionListener(this);
-        AttackTechnology.addActionListener(this);
-        DefenseTechnology.addActionListener(this);
+
 
         add(menu, BorderLayout.NORTH);
         menu.add(Box.createRigidArea(new Dimension(20,50)));
@@ -85,17 +79,6 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
             vbd.setVisible(true);
             this.setVisible(false);
         }
-        if (e.getSource().equals(AttackTechnology)) {
-            VentanaAttackTechnology vat = new VentanaAttackTechnology();
-            vat.setVisible(true);
-            this.setVisible(false);
-        }
-        if (e.getSource().equals(DefenseTechnology)) {
-            VentanaDefenseTechnology vdt = new VentanaDefenseTechnology();
-            vdt.setVisible(true);
-            this.setVisible(false);
-        }
-
     }
 
     @Override
@@ -103,11 +86,17 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
         if (e.getSource().equals(ViewPlanetStats)) {
             Main vps = null;
             try {
-                vps = new Main();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+				vps = new Main();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             vps.setVisible(true);
+            this.setVisible(false);
+        }
+        if (e.getSource().equals(UpgradeTecnology)) {
+            VentanaUpgradeTechnology vup = new VentanaUpgradeTechnology();
+            vup.setVisible(true);
             this.setVisible(false);
         }
         if (e.getSource().equals(ViewBattleReports)) {

@@ -15,7 +15,9 @@ public class Battle {
 	private int[][] initialArmies;
 	private int[] actualNumberUnitsPlanet;
 	private int[] actualNumberUnitsEnemy;
-
 	
+	public static void main(String[] args) {
+		
+	}
 	
 }

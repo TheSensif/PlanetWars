@@ -1,6 +1,11 @@
 public interface Variables {
+	// Database Config
+	public final String BD_PROJECT_NAME = "planet";
+	public final String BD_PROJECT_USER = "planet";
+	public final String BD_PROJECT_PASSWORD = "planet";
+	public final String BD_PROJECT_IP = "192.168.50.235";
 	// resources available to create the first enemy fleet
-	public final int DEUTERIUM_BASE_ENEMY_ARMY = 26000;
+	public final int DEUTERIUM_BASE_ENEMY_ARMY = 4000;
 	public final int METAL_BASE_ENEMY_ARMY = 180000;
 	// percentage increase of resources available to create enemy fleet
 	public final int ENEMY_FLEET_INCREASE = 6;
