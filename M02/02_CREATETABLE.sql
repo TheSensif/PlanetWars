@@ -7,6 +7,7 @@ create or replace procedure create_tables is
     planet_ship varchar2(50);
     planet_defense varchar2(50);
     battlelog varchar2(50);
+    logs varchar2(50);
 begin
     users :=  
     '
@@ -132,6 +133,23 @@ begin
         FOREIGN KEY (id_user) REFERENCES USERS (id_user)
     );
     '
+    logs := 
+    '
+    CREATE TABLE LOGS(
+    id_planet number,
+    id_battle number,
+    
+    turn number,
+    log varchar2(300),
+
+    CONSTRAINT logs_id_battle
+    FOREIGN KEY (id_battle) REFERENCES BattleLog (id_battle),
+    CONSTRAINT logs_id_planet
+    FOREIGN KEY (id_planet) REFERENCES PLANET (id_planet),
+    CONSTRAINT pk_logs PRIMARY KEY (id_planet, id_battle, turn)
+    );
+    '
+
 
     EXECUTE IMMEDIATE users;
 
@@ -147,6 +165,8 @@ begin
 
     EXECUTE IMMEDIATE planet_ship;
 
-    EXECUTE IMMEDIATE warships
+    EXECUTE IMMEDIATE battlelog;
+
+    EXECUTE IMMEDIATE logs;
 
 end;

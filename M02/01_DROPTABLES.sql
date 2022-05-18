@@ -1,5 +1,6 @@
 create or replace procedure drop_tables as
 begin
+    DROP TABLE Logs;
     DROP TABLE BattleLog;
     DROP TABLE PLANET_SHIP;
     DROP TABLE PLANET_DEFENSE;

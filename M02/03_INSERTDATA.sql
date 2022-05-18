@@ -13,13 +13,13 @@ begin
     values(4,'Armored Ship',30000,0,15000,80000,0,700,70,75);
 
 
-    insert into defense(id_ship, name, metal_cost, crystal_cost,deuterium_cost,initial_armor, armor, BaseDamage,speed,generate_wastings)
+    insert into defense(id_defense, name, metal_cost, crystal_cost,deuterium_cost,initial_armor, armor, BaseDamage,speed,generate_wastings)
     values(1,'Missile Launcher',2000,0,0,200,0,80,5,10);
 
-    insert into defense(id_ship, name, metal_cost, crystal_cost,deuterium_cost,initial_armor, armor, BaseDamage,speed,generate_wastings)
+    insert into defense(id_defense, name, metal_cost, crystal_cost,deuterium_cost,initial_armor, armor, BaseDamage,speed,generate_wastings)
     values(2,'Ion Cannon',4000,0,500,1200,0,250,12,25);
 
-    insert into defense(id_ship, name, metal_cost, crystal_cost,deuterium_cost,initial_armor, armor, BaseDamage,speed,generate_wastings)
+    insert into defense(id_defense, name, metal_cost, crystal_cost,deuterium_cost,initial_armor, armor, BaseDamage,speed,generate_wastings)
     values(3,'Plasma Cannon',50000,0,5000,7000,0,2000,30,50);
 
     insert into enemy(metalEnemy, deuteriumEnemy, percent, totalAtacks) 
@@ -27,5 +27,5 @@ begin
 
     insert into users (id_user,username, birth_date, password) values(55555, 'ItsIvanPsk',null,'P@ssw0rd');
 
-    insert into planet(id_planet, id_user, namePlanet, metal, deuterium, def_tech,atk_tech) values(1, 55555,'PlatLand',10000,2000,1,1);
+    insert into planet(id_planet, id_user, namePlanet, metal, deuterium, def_tech, atk_tech) values(1, 55555,'PlatLand',10000,2000,1,1);
 end;
