@@ -91,7 +91,7 @@ public class Battle implements Variables {
 
             System.out.println("DespuesBattleLog");
 
-            bd.addCostArmy(bd.getLastBattle(1),b.initialCostFleet[0][0],b.initialCostFleet[0][1],b.initialCostFleet[1][0],b.initialCostFleet[1][1]);
+            bd.addCostArmy(bd.getLastBattle(1),b.initialCostFleet[0][0],b.initialCostFleet[1][0],b.initialCostFleet[0][1],b.initialCostFleet[1][1]);
 
             p.setBattleID(bd.getLastBattle(1));
 
