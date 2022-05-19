@@ -8,6 +8,8 @@ create or replace procedure create_tables is
     planet_defense varchar2(50);
     battlelog varchar2(50);
     logs varchar2(50);
+    wastGen varchar2(50);
+    initMat varchar2(50);
 begin
     users :=  
     '
@@ -149,6 +151,28 @@ begin
     CONSTRAINT pk_logs PRIMARY KEY (id_planet, id_battle, turn)
     );
     '
+    wastGen :=
+    '
+    CREATE TABLE WAST_GEN (
+    id_battle number,
+    metal number,
+    deuterium number,
+    
+    CONSTRAINT pk_wast_gen PRIMARY KEY (id_battle)
+    );
+    '
+    initMat :=
+    '
+    CREATE TABLE INIT_MAT (
+    id_battle number,
+    userMetal number,
+    userDeuterium number,
+    enemiMetal number,
+    enemiDeuterium number,
+    
+    CONSTRAINT pk_init_mat PRIMARY KEY (id_battle)
+    );
+    '
 
 
     EXECUTE IMMEDIATE users;
@@ -168,5 +192,9 @@ begin
     EXECUTE IMMEDIATE battlelog;
 
     EXECUTE IMMEDIATE logs;
+    
+    EXECUTE IMMEDIATE wastGen;
+    
+    EXECUTE IMMEDIATE initMat;
 
 end;
