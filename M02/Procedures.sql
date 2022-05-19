@@ -211,4 +211,153 @@ begin
         DBMS_OUTPUT.PUT_LINE('Despues update');
     end if;
 end;
-/ 
+/ create or replace procedure getbLogStartLH(idNumBat in number,cant out number) is
+begin
+select userlighthunter_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogStartHH(idNumBat in number,cant out number) is
+begin
+select userheavyhunter_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogStartBS(idNumBat in number,cant out number) is
+begin
+select userbattleship_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogStartAS(idNumBat in number,cant out number) is
+begin
+select userarmoredship_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogStartML(idNumBat in number,cant out number) is
+begin
+select usermissilelauncher_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogStartIC(idNumBat in number,cant out number) is
+begin
+select userioncannon_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogStartPC(idNumBat in number,cant out number) is
+begin
+select userplasmacannon_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogStartLH(idNumBat in number,cant out number) is
+begin
+select enemielighthunter_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogStartHH(idNumBat in number,cant out number) is
+begin
+select enemieheavyhunter_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogStartBS(idNumBat in number,cant out number) is
+begin
+select enemiebattleship_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogStartAS(idNumBat in number,cant out number) is
+begin
+select enemiearmoredship_start into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogEndLH(idNumBat in number,cant out number) is
+begin
+select userlighthunter_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogEndHH(idNumBat in number,cant out number) is
+begin
+select userheavyhunter_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogEndBS(idNumBat in number,cant out number) is
+begin
+select userbattleship_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogEndAS(idNumBat in number,cant out number) is
+begin
+select userarmoredship_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogEndML(idNumBat in number,cant out number) is
+begin
+select usermissilelauncher_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogEndIC(idNumBat in number,cant out number) is
+begin
+select userioncannon_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbLogEndPC(idNumBat in number,cant out number) is
+begin
+select userplasmacannon_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogEndLH(idNumBat in number,cant out number) is
+begin
+select enemielighthunter_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogEndHH(idNumBat in number,cant out number) is
+begin
+select enemieheavyhunter_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogEndBS(idNumBat in number,cant out number) is
+begin
+select enemiebattleship_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure getbEnemiLogEndAS(idNumBat in number,cant out number) is
+begin
+select enemiearmoredship_end into cant from battlelog where id_battle=idNumBat;
+end;
+/
+create or replace procedure addWastGen(idBattle in number, metal in number, deuterium in number) is
+begin
+    insert into wast_gen(id_battle,metal,deuterium) values(idBattle,metal,deuterium);
+end;
+/
+create or replace procedure getWastMetal(idNumBat in number,cant out number) is
+begin
+select metal into cant from wast_gen where id_battle=idNumBat;
+end;
+/
+create or replace procedure getWastDeuterium(idNumBat in number,cant out number) is
+begin
+select deuterium into cant from wast_gen where id_battle=idNumBat;
+end;
+/
+create or replace procedure addCostArmy(idBattle in number, uMetal in number, uDeuterium in number, eMetal in number, eDeuterium in number) is
+begin
+    insert into init_mat(id_battle,usermetal,userdeuterium,enemimetal,enemideuterium) values(idBattle,uMetal,uDeuterium,eMetal,eDeuterium);
+end;
+/
+create or replace procedure getCostArmyMetal(idNumBat in number,cant out number) is
+begin
+select usermetal into cant from init_mat where id_battle=idNumBat;
+end;
+/
+create or replace procedure getCostArmyDeuterium(idNumBat in number,cant out number) is
+begin
+select userdeuterium into cant from init_mat where id_battle=idNumBat;
+end;
+/
+create or replace procedure getCostEnemyArmyMetal(idNumBat in number,cant out number) is
+begin
+select enemimetal into cant from init_mat where id_battle=idNumBat;
+end;
+/
+create or replace procedure getCostEnemyArmyDeuterium(idNumBat in number,cant out number) is
+begin
+select enemideuterium into cant from init_mat where id_battle=idNumBat;
+end;
+/
