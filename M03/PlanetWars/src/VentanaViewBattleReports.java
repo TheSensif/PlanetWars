@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -277,7 +279,7 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
         iAvajo.setLayout(new GridLayout(3, 2));
         principal.add(izquierda,BorderLayout.CENTER);
         iArmy.setLayout(new GridLayout(8,3,10,10));
-
+        iArmy.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Army Planet", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         iArmy.add(armyPlanet);
         iArmy.add(unitPlanet);
         iArmy.add(dropPlanet);
@@ -312,9 +314,9 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
 
         iAvajo.add(iArmy);
 
-        iArmy.setBackground(Color.GRAY);
-        iEnemyArmy.setLayout(new GridLayout(8,3,10,10));
 
+        iEnemyArmy.setLayout(new GridLayout(8,3,10,10));
+        iEnemyArmy.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Enemy Army", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         iEnemyArmy.add(armyEnemy);
         iEnemyArmy.add(unitEnemy);
         iEnemyArmy.add(dropEnemy);
@@ -349,9 +351,9 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
 
         iAvajo.add(iEnemyArmy);
 
-        iEnemyArmy.setBackground(Color.LIGHT_GRAY);
-        iAvajo.add(iCost);
 
+        iAvajo.add(iCost);
+        iCost.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Cost Army Planet", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         iCost.add(iRelleno5);
         iCost.add(iRelleno6);
         iCost.add(iRelleno7);
@@ -377,9 +379,9 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
         iCost.add(iRelleno15);
         iCost.add(iRelleno16);
 
-        iCost.setBackground(Color.LIGHT_GRAY);
-        iAvajo.add(iEnemyCost);
 
+        iAvajo.add(iEnemyCost);
+        iEnemyCost.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Cost Army Enemy", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         iEnemyCost.add(iEnemyRelleno5);
         iEnemyCost.add(iEnemyRelleno6);
         iEnemyCost.add(iEnemyRelleno7);
@@ -405,10 +407,10 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
         iEnemyCost.add(iEnemyRelleno15);
         iEnemyCost.add(iEnemyRelleno16);
 
-        iEnemyCost.setBackground(Color.GRAY);
+
 
         iPerdidas.setLayout(new GridLayout(4,4, 10,5));
-
+        iPerdidas.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Losses Army Planet", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         iPerdidas.add(iLostRelleno1);
         iPerdidas.add(iLostMetal);
         iPerdidas.add(iLostMetalCant);
@@ -431,10 +433,9 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
 
         iAvajo.add(iPerdidas);
 
-        iPerdidas.setBackground(Color.GRAY);
 
         iEnemyPerdidas.setLayout(new GridLayout(4,4, 10,5));
-
+        iEnemyPerdidas.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Losses Army Enemy", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         iEnemyPerdidas.add(iLostEnemyRelleno1);
         iEnemyPerdidas.add(iLostEnemyMetal);
         iEnemyPerdidas.add(iLostEnemyMetalCant);
@@ -457,7 +458,6 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
 
         iAvajo.add(iEnemyPerdidas);
 
-        iEnemyPerdidas.setBackground(Color.LIGHT_GRAY);
         iAvajo.setBackground(Color.GRAY);
 
         derecha.setLayout(new BoxLayout(derecha, BoxLayout.Y_AXIS));
@@ -465,6 +465,7 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
         derecha.add(dArriba);
 
         dAvajo.setLayout(new GridLayout(2,2));
+        dAvajo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Wasted Generated", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         dAvajo.add(iGenMetal);
         dAvajo.add(iGenMetalCant);
         dAvajo.add(iGenDeuterium);
@@ -576,6 +577,14 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
             int dropEnemyBattleShip;
             int dropEnemyArmoredShip;
 
+            int initArmyMetal;
+            int initArmyDeuterium;
+            int initEnemyArmyMetal;
+            int initEnemyArmyDeuterium;
+
+            int wastMetal;
+            int wastDeuterium;
+
             try {
 
                 //Unit
@@ -608,6 +617,16 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
                 dropEnemyHeavyHunter = bd.getbEnemiLogEndHH(Integer.parseInt(num));
                 dropEnemyBattleShip = bd.getbEnemiLogEndBS(Integer.parseInt(num));
                 dropEnemyArmoredShip = bd.getbEnemiLogEndAS(Integer.parseInt(num));
+
+                //Wast
+
+                wastMetal = bd.getWastMetal(Integer.parseInt(num));
+                wastDeuterium = bd.getWastDeuterium(Integer.parseInt(num));
+
+                initArmyMetal = bd.getCostArmyMetal(Integer.parseInt(num));
+                initArmyDeuterium = bd.getCostArmyDeuterium(Integer.parseInt(num));
+                initEnemyArmyMetal = bd.getCostEnemyArmyMetal(Integer.parseInt(num));
+                initEnemyArmyDeuterium = bd.getCostEnemyArmyDeuterium(Integer.parseInt(num));
 
             } catch (SQLException s) {
                 throw new RuntimeException(s);
@@ -643,6 +662,14 @@ public class VentanaViewBattleReports extends JFrame implements ActionListener ,
             iEnemyArmyDropHH.setText(String.valueOf(dropEnemyHeavyHunter));
             iEnemyArmyDropBS.setText(String.valueOf(dropEnemyBattleShip));
             iEnemyArmyDropAS.setText(String.valueOf(dropEnemyArmoredShip));
+
+            iGenMetalCant.setText(String.valueOf(wastMetal));
+            iGenDeuteriumCant.setText(String.valueOf(wastDeuterium));
+
+            iMetalCant.setText(String.valueOf(initArmyMetal));
+            iDeuteriumCant.setText(String.valueOf(initArmyDeuterium));
+            iEnemyMetalCant.setText(String.valueOf(initEnemyArmyMetal));
+            iEnemyDeuteriumCant.setText(String.valueOf(initEnemyArmyDeuterium));
 
         }
     }

@@ -278,17 +278,17 @@ public class Main extends JFrame implements ActionListener,MouseListener, Variab
         TimerTask armyGenerator = new TimerTask() {
             @Override
             public void run() {
-                int lightHunter = 0;
-                int heavyHunter = 0;
-                int battleShip = 0;
-                int armoredShip = 0;
+                int lightHunter;
+                int heavyHunter;
+                int battleShip;
+                int armoredShip;
                 try {
                     lightHunter = bd.getShip(1);
                     heavyHunter = bd.getShip(2);
                     battleShip = bd.getShip(3);
                     armoredShip = bd.getShip(4);
                 } catch (SQLException e) {
-                    
+                    throw new RuntimeException(e);
                 }
                 cantLH.setText(String.valueOf(lightHunter));
                 cantHH.setText(String.valueOf(heavyHunter));
@@ -301,15 +301,15 @@ public class Main extends JFrame implements ActionListener,MouseListener, Variab
         TimerTask defGenerator = new TimerTask() {
             @Override
             public void run() {
-                int missileLauncher = 0;
-                int ionCannon = 0;
-                int plasmaCannon = 0;
+                int missileLauncher;
+                int ionCannon;
+                int plasmaCannon;
                 try {
                     missileLauncher = bd.getDef(1);
                     ionCannon = bd.getDef(2);
                     plasmaCannon = bd.getDef(3);
                 } catch (SQLException e) {
-                    
+                    throw new RuntimeException(e);
                 }
                 cantMS.setText(String.valueOf(missileLauncher));
                 cantIC.setText(String.valueOf(ionCannon));
@@ -317,10 +317,25 @@ public class Main extends JFrame implements ActionListener,MouseListener, Variab
 
             }
         };
+        
+        TimerTask atackWarning = new TimerTask() {
+			public void run()
+			{
+				String warning = "The enemie will atack us in 1 planet rotation!!";
+				System.out.println(warning);
+				eArmy = createEnemyArmy();
+				ViewThread(eArmy);
+				
+			}
+
+		};
+
+
 
         timer.schedule(resourcesGeneration, 1000, 6000);
         timer.schedule(armyGenerator, 1000, 6000);
         timer.schedule(defGenerator, 1000, 6000);
+		timer.schedule(atackWarning, 120000, 120000); 
     }
     
 	public static void main(String[] args) {
@@ -332,7 +347,16 @@ public class Main extends JFrame implements ActionListener,MouseListener, Variab
 		
 		m.setActivePlanet(bd.checkUserPlanet("ItsIvanPsk"));
 		System.out.println("PLANETID: " + m.getActivePlanet());
-	
+		
+		System.out.println("TECH");
+		try {
+			p.upgradeTechnologyAttack(10);
+			p.upgradeTechnologyDefense(9);
+			
+		} catch (ClassNotFoundException | ResourceException | SQLException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("DESPS");
 		// Refresh the resource label
 		Integer metal = p.getMetal();
 		Integer deuterium = p.getDeuterium();
@@ -363,17 +387,37 @@ public class Main extends JFrame implements ActionListener,MouseListener, Variab
 				System.out.println(warning);
 				m.eArmy = m.createEnemyArmy();
 				m.ViewThread(m.eArmy);
+				
+			}
+
+		};
+		TimerTask atack = new TimerTask() {
+			public void run()
+			{
 				try {
 					b.Battle(p.getArmy(), m.geteArmy());
 				} catch (ResourceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 
 		};
-
+		
+		try {
+			bd.setPlanetMetal(1, 100000000);
+			bd.setPlanetDeuterium(1, 100000000);
+			p.addLigthHunter(20);
+			p.addHeavyHunter(10);
+			p.addBattleShip(7);
+			p.addMissileLauncher(30);
+			System.out.println("Size: " + p.getArmy()[0].size());
+			m.eArmy = m.createEnemyArmy();
+			//b.Battle(p.getArmy(), m.eArmy);
+		} catch (ResourceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		timer.schedule(atackWarning, 60000, 60000); 
+		timer.schedule(atack, 120000, 120000); 
 		timer.schedule(resourcesGeneration, 1000, 3000); 
 	}
 

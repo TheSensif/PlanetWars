@@ -4,10 +4,7 @@ import java.io.InputStreamReader;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Types;
 
 public class BaseDatos implements Variables{
@@ -58,10 +55,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 		return null;
@@ -94,6 +93,7 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
@@ -265,10 +265,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 	}
@@ -296,10 +298,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 	}
@@ -331,10 +335,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 		return 0;
@@ -362,10 +368,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 	}
@@ -397,10 +405,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 		return 0;
@@ -432,10 +442,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 	}
@@ -465,10 +477,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 	}
@@ -565,10 +579,12 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 	}
@@ -598,14 +614,16 @@ public class BaseDatos implements Variables{
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 	}
-	
+
 	public int getLastBattle(int planetID) throws ClassNotFoundException, SQLException
 	{ // pID in number, warshipID in number, shipCant in number, shipLvL in number
         int id = -1;
@@ -615,7 +633,7 @@ public class BaseDatos implements Variables{
             // Carga el driver de oracle
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 
-            
+
             // Conecta con la base de datos orcl con el usuario system y la contrase�a password
             cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
             // Llamada al procedimiento almacenado
@@ -627,15 +645,17 @@ public class BaseDatos implements Variables{
                 cst.registerOutParameter(2, java.sql.Types.INTEGER);
                 // Ejecuta el procedimiento almacenado
                 cst.execute();
-                
+
                 return cst.getInt(2);
             } while (id > 0);
 
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         } finally {
             try {
                 cn.close();
             } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
         }
 		return 0;
@@ -988,5 +1008,126 @@ public class BaseDatos implements Variables{
         cst.execute();
         return cst.getInt(2);
     }
-	
+
+    public void addWastGen(int idBatle, int metal, int deuterium) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call addWastGen(?,?,?)}");
+
+        cst.setInt(1,idBatle);
+        cst.setInt(2,metal);
+        cst.setInt(3,deuterium);
+
+        cst.execute();
+
+    }
+
+    public int getWastMetal (int idBatle) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call getWastMetal(?,?)}");
+
+        cst.setInt(1,idBatle);
+
+        cst.registerOutParameter(2,Types.INTEGER);
+
+        cst.execute();
+        return cst.getInt(2);
+    }
+    public int getWastDeuterium (int idBatle) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call getWastDeuterium(?,?)}");
+
+        cst.setInt(1,idBatle);
+
+        cst.registerOutParameter(2,Types.INTEGER);
+
+        cst.execute();
+        return cst.getInt(2);
+    }
+
+    public void addCostArmy(int idBatle, int uMetal, int uDeuterium, int eMetal, int eDeuterium) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call addCostArmy(?,?,?,?,?)}");
+
+        cst.setInt(1,idBatle);
+        cst.setInt(2,uMetal);
+        cst.setInt(3,uDeuterium);
+        cst.setInt(4,eMetal);
+        cst.setInt(5,eDeuterium);
+
+        cst.execute();
+
+    }
+
+    public int getCostArmyMetal (int idBatle) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call getCostArmyMetal(?,?)}");
+
+        cst.setInt(1,idBatle);
+
+        cst.registerOutParameter(2,Types.INTEGER);
+
+        cst.execute();
+        return cst.getInt(2);
+    }
+
+    public int getCostArmyDeuterium (int idBatle) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call getCostArmyDeuterium(?,?)}");
+
+        cst.setInt(1,idBatle);
+
+        cst.registerOutParameter(2,Types.INTEGER);
+
+        cst.execute();
+        return cst.getInt(2);
+    }
+
+    public int getCostEnemyArmyMetal (int idBatle) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call getCostEnemyArmyMetal(?,?)}");
+
+        cst.setInt(1,idBatle);
+
+        cst.registerOutParameter(2,Types.INTEGER);
+
+        cst.execute();
+        return cst.getInt(2);
+    }
+
+    public int getCostEnemyArmyDeuterium (int idBatle) throws SQLException {
+        Connection cn = DriverManager.getConnection("jdbc:oracle:thin:@" + BD_PROJECT_IP + BD_PROJECT_PORT_AND_SID, BD_PROJECT_NAME, BD_PROJECT_PASSWORD);
+
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+        CallableStatement cst = cn.prepareCall("{call getCostEnemyArmyDeuterium(?,?)}");
+
+        cst.setInt(1,idBatle);
+
+        cst.registerOutParameter(2,Types.INTEGER);
+
+        cst.execute();
+        return cst.getInt(2);
+    }
+
 }

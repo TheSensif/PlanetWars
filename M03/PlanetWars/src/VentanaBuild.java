@@ -64,6 +64,7 @@ public class VentanaBuild extends JFrame implements MouseListener {
     // Canvios de menu
     public static void main(String[] args) {
     	VentanaBuild vb = new VentanaBuild();
+    	
 	}
     @Override
     public void mouseClicked(MouseEvent e) {

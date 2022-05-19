@@ -18,7 +18,7 @@ public class Battle implements Variables {
     private int[][] resourcesLooses;
     private int[] actualNumberUnitsPlanet;
     private int[] actualNumberUnitsEnemy;
-    
+
     private int userLHInit;
     private int userHHInit;
     private int userBSInit;
@@ -26,12 +26,12 @@ public class Battle implements Variables {
     private int userMSInit;
     private int userICInit;
     private int userPCInit;
-    
+
     private int enemyLHInit;
     private int enemyHHInit;
     private int enemyBSInit;
     private int enemyARInit;
-    
+
     private int army_pcent;
     private int enemy_pcent;
 
@@ -54,10 +54,16 @@ public class Battle implements Variables {
         BaseDatos bd = new BaseDatos();
         Battle b = new Battle();
         try {
-        	b.planetArmy = Army;
+            // System.out.println("BattleID: " + p.getBattleID());
+
+            // System.out.println("BattleID: " + bd.getLastBattle(1));
+
+
+            b.planetArmy = Army;
             b.enemyArmy = eArmy;
             System.out.println("LH COUNT: " + b.planetArmy[0].size());
             b.initialCostFleet = b.getCostFleets(b.planetArmy, b.enemyArmy);
+
             b.initialUnitsCant = b.getInitialUnits(b.planetArmy, b.enemyArmy);
 
             int[] units = new int[2];
@@ -78,11 +84,14 @@ public class Battle implements Variables {
             int defUnit = 0;
 
             pWinner = false;
-            
             System.out.println(b.planetArmy);
             bd.addBattleLog(bd.getLastBattle(1) + 1, p.getUserID(), b.planetArmy[0].size(), b.planetArmy[1].size(), b.planetArmy[2].size(), b.planetArmy[3].size()
                     , b.planetArmy[4].size(), b.planetArmy[5].size(), b.planetArmy[6].size(), b.enemyArmy[0].size(), b.enemyArmy[1].size(), b.enemyArmy[2].size()
                     , b.enemyArmy[3].size(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            System.out.println("DespuesBattleLog");
+
+            bd.addCostArmy(bd.getLastBattle(1),b.initialCostFleet[0][0],b.initialCostFleet[0][1],b.initialCostFleet[1][0],b.initialCostFleet[1][1]);
 
             p.setBattleID(bd.getLastBattle(1));
 
@@ -93,12 +102,12 @@ public class Battle implements Variables {
             userMSInit = b.planetArmy[4].size();;
             userICInit = b.planetArmy[5].size();;
             userPCInit = b.planetArmy[6].size();;
-            
+
             enemyLHInit = b.enemyArmy[0].size();
             enemyHHInit = b.enemyArmy[1].size();;
             enemyBSInit = b.enemyArmy[2].size();;
             enemyARInit = b.enemyArmy[3].size();;
-            
+
             while (units[0] > army_pcent && units[1] > enemy_pcent) {
                 // System.out.println("On Battle");
                 validAtk = false;
@@ -139,14 +148,14 @@ public class Battle implements Variables {
                                         // System.out.println(b.enemyArmy[defGroup].get(defUnit).getActualArmor());
 
                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
 
                                         if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                             // System.out.println("Nave destruida");
 
                                             log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                    + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                    + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                     + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido.";
 
                                             int[] gen = b.enemyArmy[defGroup].get(defUnit).getChanceGeneratinWaste();
@@ -165,19 +174,19 @@ public class Battle implements Variables {
                                                 if (chance <= CHANCE_ATTACK_AGAIN_LIGTHHUNTER && chance >= 0) {
                                                     b.enemyArmy[defGroup].get(defUnit).takeDamage(b.planetArmy[atkGroup].get(atkUnit).getDamage());
                                                     log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor()
                                                             + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                     if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                                         // System.out.println("Nave destruida");
 
                                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                                 + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido."
                                                                 + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                         ;
                                                         b.enemyArmy[defGroup].remove(b.enemyArmy[defGroup].get(defUnit));
@@ -189,19 +198,19 @@ public class Battle implements Variables {
                                                 if (chance <= CHANCE_ATTACK_AGAIN_HEAVYHUNTER && chance >= 0) {
                                                     b.enemyArmy[defGroup].get(defUnit).takeDamage(b.planetArmy[atkGroup].get(atkUnit).getDamage());
                                                     log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor()
                                                             + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                     if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                                         // System.out.println("Nave destruida");
 
                                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                                 + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido."
                                                                 + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                         ;
                                                         b.enemyArmy[defGroup].remove(b.enemyArmy[defGroup].get(defUnit));
@@ -213,19 +222,19 @@ public class Battle implements Variables {
                                                 if (chance <= CHANCE_ATTACK_AGAIN_BATTLESHIP && chance >= 0) {
                                                     b.enemyArmy[defGroup].get(defUnit).takeDamage(b.planetArmy[atkGroup].get(atkUnit).getDamage());
                                                     log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor()
                                                             + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                     if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                                         // System.out.println("Nave destruida");
 
                                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                                 + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido."
                                                                 + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                         ;
                                                         b.enemyArmy[defGroup].remove(b.enemyArmy[defGroup].get(defUnit));
@@ -237,19 +246,19 @@ public class Battle implements Variables {
                                                 if (chance <= CHANCE_ATTACK_AGAIN_ARMOREDSHIP && chance >= 0) {
                                                     b.enemyArmy[defGroup].get(defUnit).takeDamage(b.planetArmy[atkGroup].get(atkUnit).getDamage());
                                                     log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor()
                                                             + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                     if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                                         // System.out.println("Nave destruida");
 
                                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                                 + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido."
                                                                 + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                         ;
                                                         b.enemyArmy[defGroup].remove(b.enemyArmy[defGroup].get(defUnit));
@@ -261,19 +270,19 @@ public class Battle implements Variables {
                                                 if (chance <= CHANCE_ATTACK_AGAIN_MISSILELAUNCHER && chance >= 0) {
                                                     b.enemyArmy[defGroup].get(defUnit).takeDamage(b.planetArmy[atkGroup].get(atkUnit).getDamage());
                                                     log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor()
                                                             + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                     if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                                         // System.out.println("Nave destruida");
 
                                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                                 + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido."
                                                                 + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                         ;
                                                         b.enemyArmy[defGroup].remove(b.enemyArmy[defGroup].get(defUnit));
@@ -285,19 +294,19 @@ public class Battle implements Variables {
                                                 if (chance <= CHANCE_ATTACK_AGAIN_IONCANNON && chance >= 0) {
                                                     b.enemyArmy[defGroup].get(defUnit).takeDamage(b.planetArmy[atkGroup].get(atkUnit).getDamage());
                                                     log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor()
                                                             + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                     if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                                         // System.out.println("Nave destruida");
 
                                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                                 + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido."
                                                                 + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                         ;
                                                         b.enemyArmy[defGroup].remove(b.enemyArmy[defGroup].get(defUnit));
@@ -310,19 +319,19 @@ public class Battle implements Variables {
                                                 if (chance <= CHANCE_ATTACK_AGAIN_PLASMACANNON && chance >= 0) {
                                                     b.enemyArmy[defGroup].get(defUnit).takeDamage(b.planetArmy[atkGroup].get(atkUnit).getDamage());
                                                     log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor()
                                                             + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                            + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                             + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                     if (b.enemyArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
                                                         // System.out.println("Nave destruida");
 
                                                         log = "El planeta ataca con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                                 + b.enemyArmy[defGroup].get(defUnit) + " ha sido destruido."
                                                                 + "El planeta vuelve a atacar con " + b.planetArmy[atkGroup].get(atkUnit) + " a " + b.enemyArmy[defGroup].get(defUnit)
-                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                                + " con " + b.planetArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                                 + ". Armadura restante " + b.enemyArmy[defGroup].get(defUnit).getActualArmor();
                                                         ;
                                                         b.enemyArmy[defGroup].remove(b.enemyArmy[defGroup].get(defUnit));
@@ -395,7 +404,7 @@ public class Battle implements Variables {
                                         // System.out.println(b.planetArmy[defGroup].get(defUnit).getActualArmor());
 
                                         log = "El enemigo ataca con " + b.enemyArmy[atkGroup].get(atkUnit) + " a " + b.planetArmy[defGroup].get(defUnit)
-                                                + " con " + b.enemyArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o"
+                                                + " con " + b.enemyArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o"
                                                 + ". Armadura restante " + b.planetArmy[defGroup].get(defUnit).getActualArmor();
 
                                         if (b.planetArmy[defGroup].get(defUnit).getActualArmor() <= 0) {
@@ -403,7 +412,7 @@ public class Battle implements Variables {
 
 
                                             log = "El enemigo ataca con " + b.enemyArmy[atkGroup].get(atkUnit) + " a " + b.planetArmy[defGroup].get(defUnit)
-                                                    + " con " + b.enemyArmy[atkGroup].get(atkUnit).getDamage() + " puntos de da�o."
+                                                    + " con " + b.enemyArmy[atkGroup].get(atkUnit).getDamage() + " puntos de daï¿½o."
                                                     + b.planetArmy[defGroup].get(defUnit) + " ha sido destruido.";
 
                                             b.planetArmy[defGroup].remove(b.planetArmy[defGroup].get(defUnit));
@@ -443,6 +452,14 @@ public class Battle implements Variables {
             bd.setPlanetDeuterium(p.getBattleID(), bd.getPlanetDeuterium(p.getPlanetID()) + totalDeuteriumWaste);
             System.out.println("Metal generado: " + totalMetalWaste);
             System.out.println("Deuterio generado: " + totalDeuteriumWaste);
+            try {
+                bd.addWastGen(bd.getLastBattle(1),totalMetalWaste,totalDeuteriumWaste);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
             int totalLH =  b.planetArmy[0].size();
             System.out.println(totalLH);
 

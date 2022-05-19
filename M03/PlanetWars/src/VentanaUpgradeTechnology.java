@@ -160,6 +160,7 @@ public class VentanaUpgradeTechnology extends JFrame implements ActionListener ,
                 Planet p = new Planet();
                 int numeroAT = Integer.parseInt(tCantAT.getText());
                 p.upgradeTechnologyAttack(numeroAT);
+                JOptionPane.showMessageDialog(null,"Has comprado " + numeroAT + " mejoras con exito.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
             } catch (ResourceException ex) {
                 throw new RuntimeException(ex);
             } catch (SQLException ex) {
@@ -174,6 +175,7 @@ public class VentanaUpgradeTechnology extends JFrame implements ActionListener ,
                 Planet p = new Planet();
                 int numeroDE = Integer.parseInt(tCantDE.getText());
                 p.upgradeTechnologyDefense(numeroDE);
+                JOptionPane.showMessageDialog(null,"Has comprado " + numeroDE + " mejoras con exito.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
             } catch (ResourceException ex) {
                 throw new RuntimeException(ex);
             } catch (SQLException ex) {
