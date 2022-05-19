@@ -121,7 +121,7 @@ end;
 /
 create or replace procedure getIdBattle(idNumBat in number,idBattle out number) is
 begin
-select id_battle into idBattle from(select rownum as num, id_battle from(select id_battle from logs order by id_battle desc))WHERE num = idNumBat;
+select id_battle into idBattle from(select rownum as num, id_battle from(select id_battle from battlelog order by id_battle desc))WHERE num = idNumBat;
 end;
 /
 create or replace procedure getPlanetName(pID in number, planetname out VARCHAR) is
@@ -211,7 +211,8 @@ begin
         DBMS_OUTPUT.PUT_LINE('Despues update');
     end if;
 end;
-/ create or replace procedure getbLogStartLH(idNumBat in number,cant out number) is
+/
+create or replace procedure getbLogStartLH(idNumBat in number,cant out number) is
 begin
 select userlighthunter_start into cant from battlelog where id_battle=idNumBat;
 end;
